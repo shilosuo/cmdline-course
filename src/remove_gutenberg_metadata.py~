@@ -1,0 +1,22 @@
+from sys import argv, stderr
+
+START = "*** START OF THIS PROJECT GUTENBERG EBOOK"
+START2 = "*** START OF THE PROJECT GUTENBERG EBOOK"
+STOP  = "*** END OF THIS PROJECT GUTENBERG EBOOK"
+STOP2  = "*** END OF THE PROJECT GUTENBERG EBOOK"
+
+if __name__=="__main__":
+    if len(argv) != 3:
+        print("USAGE: %s input_file output_file" % argv[0], file=stderr)
+        exit(1)
+
+    ifile = open(argv[1])
+    ofile = open(argv[2],"w")
+    printing = 0
+    for line in ifile:
+        if STOP or STOP2 in line:
+            break
+        if printing: 
+            print(line,end="",file=ofile)
+        if START or START2 in line:
+            printing = 1
